@@ -1,6 +1,7 @@
 import { ProductType } from '@/types/ProductType'
 import { ProductImage } from './ProductImage'
 import { formatPrice } from '@/lib/utils'
+import { AddToCart } from './AddCart'
 
 interface ProductProps {
   product: ProductType
@@ -16,9 +17,7 @@ export function Product({ product }: ProductProps) {
         <p className="w-40 truncate">{product.name}</p>
         <p className="text-md text-teal-400">{formatPrice(price)}</p>
       </div>
-      <button className="rounded-md bg-teal-600 text-white px-3 py-2 text-sm text-center">
-        Adicionar ao carrinho
-      </button>
+      <AddToCart product={product} />
     </div>
   )
 }

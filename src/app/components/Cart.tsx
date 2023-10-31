@@ -5,7 +5,7 @@ import { ShoppingCart } from 'lucide-react'
 import { Product } from './Product'
 
 export function Cart() {
-  const { toggleCart, cart, isOpen } = useCartStore()
+  const { toggleCart, cart, isOpen, clearCart } = useCartStore()
   console.log(cart)
   return (
     <>
@@ -15,7 +15,7 @@ export function Cart() {
       >
         <ShoppingCart size={26} />
         <span className="bg-teal-500 text-sm font-bold rounded-full h-5 w-5 text-center text-gray-700 absolute -top-1 -right-2 animate-bounce">
-          2
+          {cart.length}
         </span>
       </div>
 
@@ -26,18 +26,20 @@ export function Cart() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="absolute bg-slate-950 right-0 top-0 w-1/3 h-screen p-12 overflow-y-scroll"
+            className="absolute flex flex-col bg-slate-950 right-0 top-0 w-1/3 h-screen p-12 overflow-y-scroll"
           >
             <header className="flex justify-between">
               <h1>Meu Carrinho</h1>
               <button onClick={() => toggleCart()}>Fechar</button>
             </header>
 
-            <main>
+            <main className="flex-1">
               {cart.map((product) => {
-                return <Product key={product.id} product={product} />
+                return <div key={product.id}>{product.name}</div>
               })}
             </main>
+
+            <button onClick={() => clearCart()}>Limpar Carrinho</button>
           </div>
         </div>
       )}
