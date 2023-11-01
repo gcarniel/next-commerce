@@ -19,5 +19,7 @@ model Users {
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 
+  stripeCustomerId String?
+
   @@map("users")
 }

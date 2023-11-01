@@ -2,6 +2,7 @@ import prisma from '@/lib/prisma'
 import { IncomingHttpHeaders } from 'http'
 import { headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
+import Stripe from 'stripe'
 import { Webhook, WebhookRequiredHeaders } from 'svix'
 
 const webHookSecret = process.env.CLERK_WEBHOOK_SECRET || ''
@@ -63,10 +64,21 @@ async function handler(request: NextRequest) {
       ...attributes
     } = evt.data
 
+    // inserir usuario no stripe
+    const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
+      apiVersion: '2023-10-16',
+    })
+
+    const customer = await stripe.customers.create({
+      name: `${fister_name} ${last_name}`,
+      email: email_address ? email_address[0].email_address : '',
+    })
+
     await prisma.users.upsert({
       where: { externalId: id as string },
       create: {
         externalId: id as string,
+        stripeCustomerId: customer.id,
         attributes,
       },
       update: {
