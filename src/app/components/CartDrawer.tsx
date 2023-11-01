@@ -4,7 +4,14 @@ import { Minus, Plus, Trash } from 'lucide-react'
 import Image from 'next/image'
 
 export function CartDrawer() {
-  const { toggleCart, cart, clearCart, addProduct } = useCartStore()
+  const {
+    toggleCart,
+    cart,
+    clearCart,
+    addProduct,
+    removeProduct,
+    decreaseProduct,
+  } = useCartStore()
 
   return (
     <div
@@ -52,10 +59,16 @@ export function CartDrawer() {
                     >
                       <Plus strokeWidth={8} />
                     </button>
-                    <button onClick={() => {}} className="text-orange-500">
+                    <button
+                      onClick={() => decreaseProduct(product)}
+                      className="text-orange-500"
+                    >
                       <Minus strokeWidth={8} />
                     </button>
-                    <button onClick={() => {}} className="text-red-500">
+                    <button
+                      onClick={() => removeProduct(product)}
+                      className="text-red-500"
+                    >
                       <Trash strokeWidth={3} />
                     </button>
                   </div>
