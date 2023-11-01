@@ -3,6 +3,7 @@ import { useCartStore } from '@/store'
 import { Minus, Plus, Trash } from 'lucide-react'
 import Image from 'next/image'
 import { CheckoutButton } from './CheckoutButton'
+import { Checkout } from './Checkout'
 
 export function CartDrawer() {
   const {
@@ -34,55 +35,62 @@ export function CartDrawer() {
         <div className="border-b border-slate-400 py-2 w-full"></div>
 
         <div className="flex-1 pt-2">
-          {cart.map((product) => {
-            const price = product.price ? product.price / 100 : 0
+          {status === 'cart' && (
+            <>
+              {cart.map((product) => {
+                const price = product.price ? product.price / 100 : 0
 
-            return (
-              <div key={product.id} className="flex gap-4 py-4">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  width={80}
-                  height={80}
-                  className="object-cover rounded-md w-20"
-                />
-                <div className="flex flex-col gap-1">
-                  <h2 className="text-lg w-40 truncate">{product.name}</h2>
-                  <h2 className="text-lg w-40 truncate">
-                    Quantidade: {product.quantity}
-                  </h2>
-                  <span className="text-lg text-teal-500 font-semibold">
-                    {formatPrice(price)}
-                  </span>
-                  <div className="flex gap-4">
-                    <button
-                      onClick={() => addProduct(product)}
-                      className="text-green-500"
-                    >
-                      <Plus strokeWidth={8} />
-                    </button>
-                    <button
-                      onClick={() => decreaseProduct(product)}
-                      className="text-orange-500"
-                    >
-                      <Minus strokeWidth={8} />
-                    </button>
-                    <button
-                      onClick={() => removeProduct(product)}
-                      className="text-red-500"
-                    >
-                      <Trash strokeWidth={3} />
-                    </button>
+                return (
+                  <div key={product.id} className="flex gap-4 py-4">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      width={80}
+                      height={80}
+                      className="object-cover rounded-md w-20"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <h2 className="text-lg w-40 truncate">{product.name}</h2>
+                      <h2 className="text-lg w-40 truncate">
+                        Quantidade: {product.quantity}
+                      </h2>
+                      <span className="text-lg text-teal-500 font-semibold">
+                        {formatPrice(price)}
+                      </span>
+                      <div className="flex gap-4">
+                        <button
+                          onClick={() => addProduct(product)}
+                          className="text-green-500"
+                        >
+                          <Plus strokeWidth={8} />
+                        </button>
+                        <button
+                          onClick={() => decreaseProduct(product)}
+                          className="text-orange-500"
+                        >
+                          <Minus strokeWidth={8} />
+                        </button>
+                        <button
+                          onClick={() => removeProduct(product)}
+                          className="text-red-500"
+                        >
+                          <Trash strokeWidth={3} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            )
-          })}
+                )
+              })}
+            </>
+          )}
         </div>
 
         {cart.length > 0 && status === 'cart' && <CheckoutButton />}
+        {status === 'checkout' && <Checkout />}
 
-        <button onClick={() => clearCart()}>Limpar Carrinho</button>
+        {cart.length > 0 && status === 'cart' && (
+          <button onClick={() => clearCart()}>Limpar Carrinho</button>
+        )}
       </div>
     </div>
   )

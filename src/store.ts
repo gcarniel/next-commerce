@@ -72,7 +72,7 @@ export const useCartStore = create<CartState>()(
         }),
       isOpen: false,
       toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
-      clearCart: () => set({ cart: [] }),
+      clearCart: () => set({ cart: [], isOpen: false, status: 'cart' }),
     }),
     { name: 'cart-storage' },
   ),
