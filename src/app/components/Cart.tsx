@@ -6,7 +6,7 @@ import { Product } from './Product'
 import { CartDrawer } from './CartDrawer'
 
 export function Cart() {
-  const { toggleCart, cart, isOpen, clearCart } = useCartStore()
+  const { toggleCart, cart, isOpen } = useCartStore()
   return (
     <>
       <div

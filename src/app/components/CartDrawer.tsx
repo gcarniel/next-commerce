@@ -2,6 +2,7 @@ import { formatPrice } from '@/lib/utils'
 import { useCartStore } from '@/store'
 import { Minus, Plus, Trash } from 'lucide-react'
 import Image from 'next/image'
+import { CheckoutButton } from './CheckoutButton'
 
 export function CartDrawer() {
   const {
@@ -11,6 +12,7 @@ export function CartDrawer() {
     addProduct,
     removeProduct,
     decreaseProduct,
+    status,
   } = useCartStore()
 
   return (
@@ -77,6 +79,8 @@ export function CartDrawer() {
             )
           })}
         </div>
+
+        {cart.length > 0 && status === 'cart' && <CheckoutButton />}
 
         <button onClick={() => clearCart()}>Limpar Carrinho</button>
       </div>

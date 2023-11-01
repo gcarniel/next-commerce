@@ -10,10 +10,14 @@ type CartState = {
   isOpen: boolean
   toggleCart: () => void
   clearCart: () => void
+  status: 'cart' | 'checkout'
+  setCheckout: (checkout: 'cart' | 'checkout') => void
 }
 export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
+      status: 'cart',
+      setCheckout: (checkout) => set({ status: checkout }),
       cart: [],
       addProduct: (product) =>
         set((state) => {
