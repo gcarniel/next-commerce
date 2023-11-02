@@ -1,4 +1,5 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+
 import Link from 'next/link'
 import { Cart } from './Cart'
 
@@ -14,7 +15,7 @@ export function Navbar() {
 
       <div className="flex items-center gap-8">
         <Cart />
-        <div className="border-2 border-gray-400 rounded-full">
+        <div>
           <SignedIn>
             <UserButton />
           </SignedIn>

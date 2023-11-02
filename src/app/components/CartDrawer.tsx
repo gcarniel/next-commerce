@@ -60,19 +60,19 @@ export function CartDrawer() {
                       <div className="flex gap-4">
                         <button
                           onClick={() => addProduct(product)}
-                          className="text-green-500"
+                          className="text-green-500 hover:animate-wiggle"
                         >
                           <Plus strokeWidth={8} />
                         </button>
                         <button
                           onClick={() => decreaseProduct(product)}
-                          className="text-orange-500"
+                          className="text-orange-500 hover:animate-updown"
                         >
                           <Minus strokeWidth={8} />
                         </button>
                         <button
                           onClick={() => removeProduct(product)}
-                          className="text-red-500"
+                          className="text-red-500 hover:animate-scale10"
                         >
                           <Trash strokeWidth={3} />
                         </button>
