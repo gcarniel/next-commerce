@@ -36,7 +36,7 @@ export function CheckoutForm({ clientSecret }: CheckoutFormProps) {
 
     setIsLoading(false)
 
-    if (error) {
+    if (!error) {
       setCheckout('sucess')
     }
   }

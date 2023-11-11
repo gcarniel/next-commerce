@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { Elements, PaymentElement } from '@stripe/react-stripe-js'
 import { StripeElementsOptions, loadStripe } from '@stripe/stripe-js'
 import { CheckoutForm } from './CheckoutForm'
+import { Loader2Icon } from 'lucide-react'
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
@@ -49,9 +50,10 @@ export function Checkout() {
           <CheckoutForm clientSecret={clientSecret} />
         </Elements>
       ) : (
-        <div></div>
+        <div>
+          <Loader2Icon className="w-6 h-6 animate-spin" />
+        </div>
       )}
-      <h1>Checkout</h1>
     </div>
   )
 }
