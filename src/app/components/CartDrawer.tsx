@@ -85,8 +85,10 @@ export function CartDrawer() {
           )}
         </div>
 
-        {cart.length > 0 && status === 'cart' && <CheckoutButton />}
-        {status === 'checkout' && <Checkout />}
+        <div className="flex-1">
+          {cart.length > 0 && status === 'cart' && <CheckoutButton />}
+          {status === 'checkout' && <Checkout />}
+        </div>
 
         {cart.length > 0 && status === 'cart' && (
           <button onClick={() => clearCart()}>Limpar Carrinho</button>

@@ -14,22 +14,26 @@ const calculateOrderAmount = (items: ProductType[]) => {
 
 export async function POST(request: Request) {
   try {
-    const { userId } = auth()
+    const { userId, user: userClerk } = auth()
 
     if (!userId) {
-      return NextResponse.json('Unauthorized', { status: 401 })
+      return new Response('Unauthorized', { status: 401 })
     }
 
     const { items, payment_intent_id } = await request.json()
 
-    const customerIdTemp = 'cus_Oxw7xmFzvRXPdN'
+    const customerIdTemp = 'user_2Y2bAoDaCaKM6AQf7UFqLxFv9Xa'
 
     const total = calculateOrderAmount(items)
 
-    const user = await prisma.users.findFirst({ where: { externalId: userId } })
+    const user = await prisma.users.findFirst({
+      where: { externalId: customerIdTemp },
+    })
+
+    console.log(userClerk, user)
 
     if (!user) {
-      return NextResponse.json('Unauthorized', { status: 401 })
+      return new Response('Unauthorized', { status: 401 })
     }
 
     const order = {
@@ -94,7 +98,7 @@ export async function POST(request: Request) {
         ])
 
         if (existingOrder) {
-          return NextResponse.json('Order not found', { status: 404 })
+          return new Response('Order not found', { status: 401 })
         }
 
         return Response.json({ paymentIntent: updatedIntent })

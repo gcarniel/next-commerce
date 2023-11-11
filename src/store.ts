@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { ProductType } from './types/ProductType'
 import { persist } from 'zustand/middleware'
 
+type statusType = 'cart' | 'checkout' | 'sucess'
 type CartState = {
   cart: ProductType[]
   addProduct: (product: ProductType) => void
@@ -10,8 +11,8 @@ type CartState = {
   isOpen: boolean
   toggleCart: () => void
   clearCart: () => void
-  status: 'cart' | 'checkout'
-  setCheckout: (checkout: 'cart' | 'checkout') => void
+  status: statusType
+  setCheckout: (checkout: statusType) => void
   paymentIntent: string
   setPaymentIntent: (paymentIntent: string) => void
 }
