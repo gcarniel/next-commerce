@@ -11,7 +11,7 @@ export function AddToCart({ product }: AddToCartProps) {
   return (
     <button
       onClick={() => addProduct(product)}
-      className="rounded-md bg-teal-600 text-white px-3 py-2 text-sm text-center"
+      className="rounded-md bg-teal-600 text-white px-3 py-2 text-sm text-center hover:bg-teal-500 duration-200"
     >
       Adicionar ao carrinho
     </button>
