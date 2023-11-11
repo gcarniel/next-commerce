@@ -20,7 +20,7 @@ model Users {
   updateAt  DateTime @updatedAt
 
   stripeCustomerId String?
-  Order            Order[]
+  orders           Order[]
 
   @@map("users")
 }
@@ -35,7 +35,7 @@ model Order {
   paymentIntentId String?  @unique
 
   user   Users  @relation(fields: [userId], references: [id])
-  userId String
+  userId String @map("user_id")
 
   products Product[]
 
@@ -51,8 +51,7 @@ model Product {
   image       String?
   quantity    Float   @default(0)
 
-  orderId String?
-  Order   Order?  @relation(fields: [orderId], references: [id])
+  orders Order[]
 
   @@map("products")
 }

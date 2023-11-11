@@ -27,7 +27,7 @@ export async function POST(request: Request) {
   const order = {
     user: {
       connect: {
-        id: userId,
+        id: '1',
       },
     },
     amount: total,
