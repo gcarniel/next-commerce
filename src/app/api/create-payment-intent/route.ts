@@ -30,8 +30,6 @@ export async function POST(request: Request) {
       where: { externalId: customerIdTemp },
     })
 
-    console.log(userClerk, user)
-
     if (!user) {
       return new Response('Unauthorized', { status: 401 })
     }
@@ -56,10 +54,6 @@ export async function POST(request: Request) {
         })),
       },
     }
-
-    console.log(order)
-
-    console.log(payment_intent_id)
 
     if (payment_intent_id) {
       const currentIntent = await stripe.paymentIntents.retrieve(
@@ -97,7 +91,7 @@ export async function POST(request: Request) {
           }),
         ])
 
-        if (existingOrder) {
+        if (!existingOrder) {
           return new Response('Order not found', { status: 401 })
         }
 
