@@ -17,7 +17,7 @@ type Event = {
 
 type EventDataType = {
   id: string
-  fister_name: string
+  first_name: string
   last_name: string
   email_address: EmailAddressType[]
   primary_email_address_id: string
@@ -57,7 +57,7 @@ async function handler(request: NextRequest) {
   if (eventType === 'user.created' || eventType === 'user.updated') {
     const {
       id,
-      fister_name,
+      first_name,
       last_name,
       email_address,
       primary_email_address_id,
@@ -70,7 +70,7 @@ async function handler(request: NextRequest) {
     })
 
     const customer = await stripe.customers.create({
-      name: `${fister_name} ${last_name}`,
+      name: `${first_name} ${last_name}`,
       email: email_address ? email_address[0].email_address : '',
     })
 
