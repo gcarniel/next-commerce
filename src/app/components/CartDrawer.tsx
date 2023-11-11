@@ -4,6 +4,9 @@ import { Minus, Plus, Trash } from 'lucide-react'
 import Image from 'next/image'
 import { CheckoutButton } from './CheckoutButton'
 import { Checkout } from './Checkout'
+import { OrderCompleted } from './OrderCompleted'
+
+import { motion } from 'framer-motion'
 
 export function CartDrawer() {
   const {
@@ -16,8 +19,26 @@ export function CartDrawer() {
     status,
   } = useCartStore()
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.2,
+      },
+    },
+  }
+
+  const item = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1 },
+  }
+
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       onClick={() => toggleCart()}
       className={`fixed inset-0 w-full h-screen bg-slate-950/50 z-50`}
     >
@@ -34,14 +55,23 @@ export function CartDrawer() {
 
         <div className="border-b border-slate-400 py-2 w-full"></div>
 
-        <div className="flex-1 pt-2">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="flex-1 pt-2"
+        >
           {status === 'cart' && (
             <>
               {cart.map((product) => {
                 const price = product.price ? product.price / 100 : 0
 
                 return (
-                  <div key={product.id} className="flex gap-4 py-4">
+                  <motion.div
+                    variants={item}
+                    key={product.id}
+                    className="flex gap-4 py-4"
+                  >
                     <Image
                       src={product.image}
                       alt={product.name}
@@ -78,22 +108,23 @@ export function CartDrawer() {
                         </button>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 )
               })}
             </>
           )}
-        </div>
+        </motion.div>
 
         <div className="flex-1">
           {cart.length > 0 && status === 'cart' && <CheckoutButton />}
           {status === 'checkout' && <Checkout />}
+          {status === 'success' && <OrderCompleted />}
         </div>
 
         {cart.length > 0 && status === 'cart' && (
           <button onClick={() => clearCart()}>Limpar Carrinho</button>
         )}
       </div>
-    </div>
+    </motion.div>
   )
 }

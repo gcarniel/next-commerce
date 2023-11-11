@@ -14,7 +14,7 @@ const calculateOrderAmount = (items: ProductType[]) => {
 
 export async function POST(request: Request) {
   try {
-    const { userId, user: userClerk } = auth()
+    const { userId } = auth()
 
     if (!userId) {
       return new Response('Unauthorized', { status: 401 })
@@ -22,12 +22,10 @@ export async function POST(request: Request) {
 
     const { items, payment_intent_id } = await request.json()
 
-    const customerIdTemp = 'user_2Y2bAoDaCaKM6AQf7UFqLxFv9Xa'
-
     const total = calculateOrderAmount(items)
 
-    const user = await prisma.users.findFirst({
-      where: { externalId: customerIdTemp },
+    const user = await prisma.users.findUnique({
+      where: { externalId: userId },
     })
 
     if (!user) {

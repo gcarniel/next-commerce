@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { ProductType } from './types/ProductType'
 import { persist } from 'zustand/middleware'
 
-type statusType = 'cart' | 'checkout' | 'sucess'
+type statusType = 'cart' | 'checkout' | 'success'
 type CartState = {
   cart: ProductType[]
   addProduct: (product: ProductType) => void

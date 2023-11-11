@@ -37,7 +37,7 @@ export function CheckoutForm({ clientSecret }: CheckoutFormProps) {
     setIsLoading(false)
 
     if (!error) {
-      setCheckout('sucess')
+      setCheckout('success')
     }
   }
 
@@ -56,7 +56,7 @@ export function CheckoutForm({ clientSecret }: CheckoutFormProps) {
         className="rounded-md bg-teal-600 text-white px-3 py-2 text-sm text-center hover:bg-teal-500 duration-200"
         disabled={isLoading || !stripe}
       >
-        {isLoading ? 'Loading...' : 'Finalizar compra'}
+        {isLoading ? 'Finalizando...' : 'Finalizar compra'}
       </button>
     </form>
   )
